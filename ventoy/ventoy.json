@@ -1,0 +1,90 @@
+{
+    "control":[
+        { "VTOY_DEFAULT_KBD_LAYOUT": "FRENCH" },
+        { "VTOY_MENU_LANGUAGE": "fr_FR" },
+        { "VTOY_DEFAULT_IMAGE": "/scripts/demande.xml" }
+    ],
+    "control_legacy":[
+        { "VTOY_DEFAULT_KBD_LAYOUT": "FRENCH" },
+        { "VTOY_MENU_LANGUAGE": "fr_FR" },
+        { "VTOY_DEFAULT_IMAGE": "/scripts/demande.xml" }
+    ],
+    "control_uefi":[
+        { "VTOY_DEFAULT_KBD_LAYOUT": "FRENCH" },
+        { "VTOY_MENU_LANGUAGE": "fr_FR" },
+        { "VTOY_DEFAULT_IMAGE": "/scripts/demande.xml" }
+    ],
+    "control_ia32":[
+        { "VTOY_MENU_LANGUAGE": "fr_FR" },
+        { "VTOY_DEFAULT_IMAGE": "/scripts/demande.xml" }
+    ],
+    "control_aa64":[
+        { "VTOY_DEFAULT_KBD_LAYOUT": "FRENCH" },
+        { "VTOY_MENU_LANGUAGE": "fr_FR" },
+        { "VTOY_DEFAULT_IMAGE": "/scripts/demande.xml" }
+    ],
+    "control_mips":[
+        { "VTOY_DEFAULT_KBD_LAYOUT": "FRENCH" },
+        { "VTOY_MENU_LANGUAGE": "fr_FR" },
+        { "VTOY_DEFAULT_IMAGE": "/scripts/demande.xml" }
+    ],
+    "auto_install":[
+        {
+            "image": "/Win11_22H2_French_x64v2.iso",
+            "template":[
+                "/scripts/demande.xml",
+                "/scripts/eff_inst.xml"
+            ]
+        }
+    ],
+    "auto_install_legacy":[
+        {
+            "image": "/Win11_22H2_French_x64v2.iso",
+            "template":[
+                "/scripts/demande.xml",
+                "/scripts/efface_tout.xml",
+                "/scripts/eff_inst.xml"
+            ]
+        }
+    ],
+    "auto_install_uefi":[
+        {
+            "image": "/Win11_22H2_French_x64v2.iso",
+            "template":[
+                "/scripts/demande.xml",
+                "/scripts/efface_tout.xml",
+                "/scripts/eff_inst.xml"
+            ]
+        }
+    ],
+    "auto_install_ia32":[
+        {
+            "image": "/Win11_22H2_French_x64v2.iso",
+            "template":[
+                "/scripts/demande.xml",
+                "/scripts/efface_tout.xml",
+                "/scripts/eff_inst.xml"
+            ]
+        }
+    ],
+    "auto_install_aa64":[
+        {
+            "image": "/Win11_22H2_French_x64v2.iso",
+            "template":[
+                "/scripts/demande.xml",
+                "/scripts/efface_tout.xml",
+                "/scripts/eff_inst.xml"
+            ]
+        }
+    ],
+    "auto_install_mips":[
+        {
+            "image": "/Win11_22H2_French_x64v2.iso",
+            "template":[
+                "/scripts/demande.xml",
+                "/scripts/efface_tout.xml",
+                "/scripts/eff_inst.xml"
+            ]
+        }
+    ]
+}
