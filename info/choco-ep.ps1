@@ -32,7 +32,7 @@ choco feature enable -n=useRememberedArgumentsForUpgrades
 choco install dotnet dotnetfx -y
 choco install jre8 -y
 choco install KB2919355 KB2919442 KB2999226 KB3033929 KB3035131 -y
-choco install vcredist140 vcredist2008 vcredist2012 vcredist2015 vcredist2017 -y
+choco install vcredist140 vcredist-all -y
 # Display link si c'est un portable
 if ($pctype -like "Mobil*"){
     # c'est un portable
@@ -94,3 +94,11 @@ Install-WindowsUpdate -AcceptAll
 
 $NomMachine = Read-Host 'quel sera le nom de cette machine ?'
 Rename-Computer -NewName $NomMachine
+Write-Host "On tue dont sleep"
+$p = Get-Process -Name "DontSleep_x64_p"
+Stop-Process -InputObject $p
+Get-Process | Where-Object {$_.HasExited}
+Write-Host "#=======================================================#"
+Write-Host "#======================REDEMARRAGE======================#"
+Write-Host "#=======================================================#"
+Restart-Computer
