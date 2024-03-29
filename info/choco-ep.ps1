@@ -41,6 +41,8 @@ if ($pctype -like "Mobil*"){
 }
 # programmes utiles
 choco install treesizefree powertoys 7zip notepadplusplus vlc openshot filezilla jabra-direct -y
+# programmes utiles
+choco install teamviewer -y --ignore-checksums
 # lecteurs pdf
 choco install adobereader pdfxchangeeditor inkscape -y
 # images
@@ -89,6 +91,11 @@ if ($manufacturer -like "Dell*"){
 	Write-Host "Le fichier Dell command update n'existe pas !"
 	}
 }
+#Installation application locale en exe et msi
+Start-Process -FilePath "C:\info\locale\progisem\Client\AppSEM_Client.exe /VERYSILENT /NORESTART" -NoNewWindow -Wait -PassThru $process.ExitCode
+Start-Process -FilePath "msiexec /i c:\info\SophosConnect_2.2.90_IPsec_and_SSLVPN.msi /quiet /qn /norestart" -NoNewWindow -Wait -PassThru $process.ExitCode
+
+C:\info\locale\progisem\Client
 # on fini en forcant la maj de windows
 Install-WindowsUpdate -AcceptAll
 
