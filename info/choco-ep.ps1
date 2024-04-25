@@ -92,15 +92,15 @@ if ($manufacturer -like "Dell*"){
 	}
 }
 #Installation application locale en exe et msi
-if (Test-Path "C:\info\locale\progisem\Client\AppSEM_Client.exe"){
-   Start-Process -FilePath "C:\info\locale\progisem\Client\AppSEM_Client.exe /VERYSILENT /NORESTART" -NoNewWindow -Wait -PassThru $process.ExitCode
-}else{
-   Write-Host "Le fichier AppSEM_Client.exe n'existe pas !"
-}
 if (Test-Path "c:\info\SophosConnect_2.2.90_IPsec_and_SSLVPN.msi"){
    Start-Process -FilePath "msiexec /i c:\info\SophosConnect_2.2.90_IPsec_and_SSLVPN.msi /quiet /qn /norestart" -NoNewWindow -Wait -PassThru $process.ExitCode
 }else{
    Write-Host "SophosConnect_2.2.90_IPsec_and_SSLVPN.msi n'existe pas !"
+}
+if (Test-Path "c:\info\Collaboration-x64.msi"){
+   Start-Process -FilePath "msiexec /i c:\info\Collaboration-x64.msi /quiet /qn /norestart" -NoNewWindow -Wait -PassThru $process.ExitCode
+}else{
+   Write-Host "Wildix Collaboration-x64.msi n'existe pas !"
 }
 
 
