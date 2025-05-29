@@ -103,8 +103,31 @@ if (Test-Path "c:\info\Collaboration-x64.msi"){
    Write-Host "Wildix Collaboration-x64.msi n'existe pas !"
 }
 
+Write-Host "Desactivation Game Bar"
+$p="HKLM\SOFTWARE\Polices\Microsoft\Windows\GameDVR"
+if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "AllowGameDVR" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+$p="HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR"
+if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "AppCaptureEnabled" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+$p="HKCU\SOFTWARE\Microsoft\GameBar"
+if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "UseNexusForGameBarEnabled" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+$p="HKCU\SOFTWARE\Microsoft\GameBar"
+if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "ShowStartupPanel" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+Write-Host "Menu clic-droit classique"
+$p="HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
+if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "InprocServer32" -Value "0" -Type SZ -force -ErrorAction SilentlyContinue
+Write-Host "rajouter fin de tache au clic-droit"
+$p="HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings"
+if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "TaskbarEndTask" -Value "1" -Type DWORD -force -ErrorAction SilentlyContinue
+Write-Host "deplacer la barre des taches a gauche"
+$p="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "TaskbarAl" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+Write-Host "Montre les extensions de fichiers"
+$p="HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "HideFileExt" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+Write-Host "Activiation BSOD details"
+$p="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "DisplayParameters" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
 
-C:\info\locale\progisem\Client
 # on fini en forcant la maj de windows
 Install-WindowsUpdate -AcceptAll
 
