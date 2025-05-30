@@ -24,6 +24,8 @@ if (Test-Path $Pasdodo){
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 #
 #   Module de gestion de windows update
+Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+Install-Module -Name PSAppDeployToolkit -Force
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 Install-Module -Name PSWindowsUpdate -Force
 # se souvenir des options en cas de montée de version
@@ -104,29 +106,20 @@ if (Test-Path "c:\info\Collaboration-x64.msi"){
 }
 
 Write-Host "Desactivation Game Bar"
-$p="HKLM\SOFTWARE\Polices\Microsoft\Windows\GameDVR"
-if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "AllowGameDVR" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
-$p="HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR"
-if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "AppCaptureEnabled" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
-$p="HKCU\SOFTWARE\Microsoft\GameBar"
-if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "UseNexusForGameBarEnabled" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
-$p="HKCU\SOFTWARE\Microsoft\GameBar"
-if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "ShowStartupPanel" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+Set-ADTRegistryKey -Key 'HKEY_LOCAL_MACHINE\SOFTWARE\Polices\Microsoft\Windows\GameDVR' -Name 'AllowGameDVR' -Value 0 -Type DWord
+Set-ADTRegistryKey -Key 'HKEY_LOCAL_MACHINE\SOFTWARE\Polices\Microsoft\Windows\GameDVR' -Name 'AppCaptureEnabled' -Value 0 -Type DWord
+Set-ADTRegistryKey -Key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\GameBar' -Name 'UseNexusForGameBarEnabled' -Value 0 -Type DWord
+Set-ADTRegistryKey -Key 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\GameBar' -Name 'ShowStartupPanel' -Value 0 -Type DWord
 Write-Host "Menu clic-droit classique"
-$p="HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
-if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "InprocServer32" -Value "0" -Type SZ -force -ErrorAction SilentlyContinue
+reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
 Write-Host "rajouter fin de tache au clic-droit"
-$p="HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings"
-if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "TaskbarEndTask" -Value "1" -Type DWORD -force -ErrorAction SilentlyContinue
+Set-ADTRegistryKey -Key 'HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\TaskbarDeveloperSettings' -Name 'TaskbarEndTask' -Value 1 -Type DWord
 Write-Host "deplacer la barre des taches a gauche"
-$p="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
-if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "TaskbarAl" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+Set-ADTRegistryKey -Key 'HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'TaskbarAl' -Value 1 -Type DWord
 Write-Host "Montre les extensions de fichiers"
-$p="HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
-if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "HideFileExt" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+Set-ADTRegistryKey -Key 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'HideFileExt' -Value 0 -Type DWord
 Write-Host "Activiation BSOD details"
-$p="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
-if(!(Test-Path $p)){ni $p}; New-ItemProperty $p -Name "DisplayParameters" -Value "0" -Type DWORD -force -ErrorAction SilentlyContinue
+Set-ADTRegistryKey -Key 'HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -Name 'DisplayParameters' -Value 0 -Type DWord
 
 # on fini en forcant la maj de windows
 Install-WindowsUpdate -AcceptAll
